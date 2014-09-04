@@ -48,15 +48,22 @@ int main()
   std::uniform_int_distribution<ui> distribution(1,n);
     
     
-        vector<vector <ui> > G(n+1,vector<ui> (6));
+        vector<set <ui> > G(n+1);
     
     
     for(unsigned int i=1;i<=n;++i)
         {
             ui j=5;
-        {
             
+            while(j--)
+        {
+            ui neighbour;
+            neighbour = distribution(generator);
+            auto newno = G[i].insert(neighbour);
+            if(newno.second==false)
+                j++;
         }
+        
   }   
     for(ui i=1;i<=n;++i)
         {
