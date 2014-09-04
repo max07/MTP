@@ -8,7 +8,8 @@ using namespace std;
 int main()
     {
     
-    ui n=1000,d=5,epsi,m,l,s;
+    ui n=1000,d=5,m,l,s;
+    double epsi;
     
     cout<<"Enter the number of Nodes (n) where n > 49 : "<<endl;
     cin>>n;
