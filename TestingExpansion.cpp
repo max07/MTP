@@ -98,12 +98,23 @@ int main()
         for(ui m=1; m<=(sqrt(n)); ++m)
             {
                 ui w=v;
-            
+            std::uniform_int_distribution<ui> dVertex (1,5);
             for(ui l=1; l<= log2(n);++l)
                 {
-                    std::uniform_int_distribution<ui> dVertex (1,G[w].size());
-                    w = dVertex(generator);                   
+                    
+                    auto it=G[w].begin();    
+                    
+                    w = dVertex(generator);
+            
+                    while(w--)
+                    {
+                        it++;
+                    }
+                    
+                    w=*it;
+                    
             }  
+            
             
             pairs1.push_back(w);
             
