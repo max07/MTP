@@ -7,9 +7,34 @@ using namespace std;
 
 int main()
     {
-    ui n=1000;
     
+    ui n=1000,d=5,epsi,m,l,s;
+    
+    cout<<"Enter the number of Nodes (n) where n > 49 : "<<endl;
     cin>>n;
+    assert(n>49);
+    
+    cout<<"Enter the degree of each node (d) where d > 3 : "<<endl;
+    cin>>d;
+    assert(d > 3);
+    
+    cout<<"Enter the value of epsilon (epsi) where 0 < epsi < 1  : "<<endl;
+    cin>>epsi;
+    assert(epsi>0 && epsi<1);
+    
+    
+    cout<<"Enter the value to repeat the loop (s) where  s>=48/epsi : "<<endl;
+    cin>>s;
+    assert(s>=48/epsi);
+    
+    
+    cout<<"Enter the no of random walks (m) where  m>=s*12*sqrt(n)/(epsi^2) : "<<endl;
+    cin>>m;
+    assert(m>=(s*12*sqrt(n)/pow(epsi,2)));
+    
+    cout<<"Enter the length of random walk (l) where  l>=16*(d^2)*ln(n/epsi) : "<<endl;
+    cin>>l;
+    assert(l>=(16*(d^2)*ln(n/epsi)));
     
     
     /**************************************************************/
@@ -23,45 +48,15 @@ int main()
   std::uniform_int_distribution<ui> distribution(1,n);
     
     
-        vector<vector <ui> > G(n+1);
+        vector<vector <ui> > G(n+1,vector<ui> (6));
     
     
     for(unsigned int i=1;i<=n;++i)
         {
-        ui n1=0,n2=0,n3=0,n4=0,n5=0;
-    while(n1==n2)
+            ui j=5;
         {
-        while(n2==n3)
-            {
-            while(n3==n4)
-                {
-                while(n4==n5)
-                    {
-                    while(n5==i || n5==0)
-                        {
-                        n5=distribution(generator);
-                    }
-                    n4=distribution(generator);
-                }        
-                n3=distribution(generator);
-            }
-            n2=distribution(generator);
-        }
-        n1=distribution(generator);
-    }
             
-        G[i].push_back(n1);
-        G[i].push_back(n2);
-        G[i].push_back(n3);
-        G[i].push_back(n4);
-        G[i].push_back(n5);
-        
-        G[n1].push_back(i);
-        G[n2].push_back(i);
-        G[n3].push_back(i);
-        G[n4].push_back(i);
-        G[n5].push_back(i);
-        
+        }
   }   
     for(ui i=1;i<=n;++i)
         {
