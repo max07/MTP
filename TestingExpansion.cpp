@@ -35,7 +35,7 @@ int main()
     
     cout<<"Enter the length of random walk (l) where  l>=16*(d^2)*ln(n/epsi) : "<<endl;
     cin>>l;
-    assert(l>=(16*(d^2)*ln(n/epsi)));
+    assert(l>=(16*pow(d,2)*log(n/epsi)));
     
     
     /**************************************************************/
@@ -86,7 +86,6 @@ int main()
     /**************************************************************/
 
         
-    ui s=50;
     distribution.reset();
     
     
