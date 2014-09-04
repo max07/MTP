@@ -53,15 +53,18 @@ int main()
     
     for(unsigned int i=1;i<=n;++i)
         {
-            ui j=5;
             
-            while(j--)
+            
+            while(G[i].size()!=5)
         {
             ui neighbour;
             neighbour = distribution(generator);
-            auto newno = G[i].insert(neighbour);
-            if(newno.second==false)
-                j++;
+            
+            if(G[neighbour].size()!=5)
+                auto newno = G[i].insert(neighbour);
+            
+            if(newno.second==true)
+                G[neighbour].insert(i);
         }
         
   }   
