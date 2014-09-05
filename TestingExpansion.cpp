@@ -42,33 +42,98 @@ int main()
     /*     Generating Random Graph                                */     
     /*                                                            */      
     /**************************************************************/
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   
   std::default_random_engine generator (seed);
 
   std::uniform_int_distribution<ui> distribution(1,n);
     
     
-        vector<set <ui> > G(n+1);
+        vector<list <ui> > G(n+1);
     
     
-    for(unsigned int i=1;i<=n;++i)
+    for(ui i=1;i<=n;++i)
         {
-            
-            
-            while(G[i].size()!=5)
+        ui n1=0,n2=0,n3=0,n4=0,n5=0;
+    while(n1==n2)
         {
-            ui neighbour;
-            neighbour = distribution(generator);
-            
-            if(G[neighbour].size()!=5)
-                auto newno = G[i].insert(neighbour);
-            
-            if(newno.second==true)
-                G[neighbour].insert(i);
+        while(n2==n3)
+            {
+            while(n3==n4)
+                {
+                while(n4==n5)
+                    {
+                    while(n5==i || n5==0)
+                        {
+                        n5=distribution(generator);
+                    }
+                    n4=distribution(generator);
+                }        
+                n3=distribution(generator);
+            }
+            n2=distribution(generator);
         }
+        n1=distribution(generator);
+    }
+           
+            G[i].unique();
+            G[n5].unique();
+            G[n4].unique();
+            G[n3].unique();
+            G[n2].unique();
+            G[n1].unique();
+         
         
+              if(G[i].size()<10 && G[n5].size()<10)  
+            {
+                G[i].push_back(n5);
+                G[n5].push_back(i);
+            }    
+            
+            G[i].unique();
+            G[n5].unique();
+           
+              if(G[i].size()<10 && G[n4].size()<10)  
+            {
+                G[i].push_back(n4);
+                G[n4].push_back(i);
+            }    
+            
+            G[i].unique();
+            G[n4].unique();
+           
+              if(G[i].size()<10 && G[n3].size()<10)  
+            {
+                G[i].push_back(n3);
+                G[n3].push_back(i);
+            }    
+           
+            G[i].unique();
+            G[n3].unique();
+            
+              if(G[i].size()<10 && G[n2].size()<10)  
+            {
+                G[i].push_back(n2);
+                G[n2].push_back(i);
+            }    
+            
+            G[i].unique();
+            G[n2].unique();
+             
+              if(G[i].size()<10 && G[n1].size()<10)  
+            {
+                G[i].push_back(n1);
+                G[n1].push_back(i);
+            }    
+            
+            G[i].unique();
+            G[n1].unique();
+        
+            if(G[i].size()<5)
+                  i--;
+            
   }   
+  
     for(ui i=1;i<=n;++i)
         {
         cout<<"Node "<<i<<": " ;
@@ -78,6 +143,7 @@ int main()
         }
         cout<<endl;
     }
+
 
     
     /**************************************************************/
@@ -98,7 +164,9 @@ int main()
         for(ui m=1; m<=(sqrt(n)); ++m)
             {
                 ui w=v;
-            std::uniform_int_distribution<ui> dVertex (1,5);
+            
+            std::uniform_int_distribution<ui> dVertex (1,G[w].size());
+            
             for(ui l=1; l<= log2(n);++l)
                 {
                     
@@ -106,10 +174,7 @@ int main()
                     
                     w = dVertex(generator);
             
-                    while(w--)
-                    {
-                        it++;
-                    }
+                    advance(it,w-1);
                     
                     w=*it;
                     
