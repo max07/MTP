@@ -134,28 +134,27 @@ int main()
         
         vector< ui> pairs1;
         
-        for(ui m=1; m<=(sqrt(n)); ++m)
+        for(ui m=1; m<=(25); ++m)
             {
                 ui w=v;
                 
             std::uniform_int_distribution<ui> dVertex (1,10);
             
-             for(ui l=1; l<= log2(n);++l)
+            for(ui l=1; l<= 10;++l)
                 {
                     ui temp=w;
              
                     list<ui>::iterator it=G[temp].begin();   
                     
                     w = dVertex(generator);
-                                 
                 
                 if(w<G[temp].size())
                     { 
                         while(w--)
                             it++;
                         
-                        w=*it;                       
-                       
+                        w=*it;
+                      
                     }
                     
                     else
@@ -178,7 +177,7 @@ int main()
             pairs1.resize(distance(pairs1.begin(),it) ); 
     
             collision = collision- pairs1.size();
-             if(collision < (((sqrt(n))*((sqrt(n))-1))/(2*n)))
+            if( collision < ((25*25-1)/(2*n)) )
                 {cout<<"Reject"<<endl;return 0;}
              
         
