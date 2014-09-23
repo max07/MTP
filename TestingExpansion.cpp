@@ -1,48 +1,21 @@
-#include<bits/stdc++.h>
-#include<random>
+#include <bits/stdc++.h>
 #include<chrono>
+#include<random>
 
 #define ui unsigned int
+
 using namespace std;
 
+
 int main()
-    {
-    
-    ui n=1000,d=5,m,l,s;
-    double epsi;
-    
-    cout<<"Enter the number of Nodes (n) where n > 49 : "<<endl;
-    cin>>n;
-    assert(n>49);
-    
-    cout<<"Enter the degree of each node (d) where d > 3 : "<<endl;
-    cin>>d;
-    assert(d > 3);
-    
-    cout<<"Enter the value of epsilon (epsi) where 0 < epsi < 1  : "<<endl;
-    cin>>epsi;
-    assert(epsi>0 && epsi<1);
-    
-    
-    cout<<"Enter the value to repeat the loop (s) where  s>=48/epsi : "<<endl;
-    cin>>s;
-    assert(s>=48/epsi);
-    
-    
-    cout<<"Enter the no of random walks (m) where  m>=s*12*sqrt(n)/(epsi^2) : "<<endl;
-    cin>>m;
-    assert(m>=(s*12*sqrt(n)/pow(epsi,2)));
-    
-    cout<<"Enter the length of random walk (l) where  l>=16*(d^2)*ln(n/epsi) : "<<endl;
-    cin>>l;
-    assert(l>=(16*pow(d,2)*log(n/epsi)));
-    
-    
+{  
     /**************************************************************/
     /*     Generating Random Graph                                */     
     /*                                                            */      
     /**************************************************************/
- unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    ui n=10000;
+    
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   
   std::default_random_engine generator (seed);
 
@@ -133,7 +106,6 @@ int main()
                   i--;
             
   }   
-  
     for(ui i=1;i<=n;++i)
         {
         cout<<"Node "<<i<<": " ;
@@ -143,47 +115,58 @@ int main()
         }
         cout<<endl;
     }
-
-
     
-    /**************************************************************/
-    /*     Random Walks & Expansion Tester                        */     
-    /*                                                            */      
-    /**************************************************************/
-
+    
         
     distribution.reset();
+   
+    ui s=50;
     
+    /**************************************************************/
+    /*     Testing Expander Graph                                 */     
+    /*                                                            */      
+    /**************************************************************/
     
     while(s--)
         {
             ui v;
         v = distribution(generator);
+        
         vector< ui> pairs1;
         
         for(ui m=1; m<=(sqrt(n)); ++m)
             {
                 ui w=v;
+                
+            std::uniform_int_distribution<ui> dVertex (1,10);
             
-            std::uniform_int_distribution<ui> dVertex (1,G[w].size());
-            
-            for(ui l=1; l<= log2(n);++l)
+             for(ui l=1; l<= log2(n);++l)
                 {
-                    
-                    auto it=G[w].begin();    
+                    ui temp=w;
+             
+                    list<ui>::iterator it=G[temp].begin();   
                     
                     w = dVertex(generator);
-            
-                    advance(it,w-1);
+                                 
+                
+                if(w<G[temp].size())
+                    { 
+                        while(w--)
+                            it++;
+                        
+                        w=*it;                       
+                       
+                    }
                     
-                    w=*it;
+                    else
+                        w=temp;
                     
             }  
             
             
             pairs1.push_back(w);
             
-        }
+        } 
             sort(pairs1.begin(),pairs1.end());
                     
             ui collision= pairs1.size();
@@ -195,15 +178,14 @@ int main()
             pairs1.resize(distance(pairs1.begin(),it) ); 
     
             collision = collision- pairs1.size();
-            if(collision < (((sqrt(n))*((sqrt(n))-1))/(2*n)))
+             if(collision < (((sqrt(n))*((sqrt(n))-1))/(2*n)))
                 {cout<<"Reject"<<endl;return 0;}
-                
+             
         
-    }
+    } 
         cout<<"Accept"<<endl;
     
     
-    
-    
-    return 0;
+
+return 0;
 }
