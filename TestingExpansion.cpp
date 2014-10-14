@@ -22,7 +22,7 @@ int main()
   std::uniform_int_distribution<ui> distribution(1,n);
     
     
-        vector<list <ui> > G(n+1);
+        vector<vector <ui> > G(n+1);
     
     
     for(ui i=1;i<=n;++i)
@@ -49,59 +49,37 @@ int main()
         n1=distribution(generator);
     }
            
-            G[i].unique();
-            G[n5].unique();
-            G[n4].unique();
-            G[n3].unique();
-            G[n2].unique();
-            G[n1].unique();
-         
-        
-              if(G[i].size()<10 && G[n5].size()<10)  
+            
+              if(G[i].size()<10 && G[n5].size()<10 && (find(G[i].begin(), G[i].end(), n5)==G[i].end()))  
             {
                 G[i].push_back(n5);
                 G[n5].push_back(i);
             }    
             
-            G[i].unique();
-            G[n5].unique();
-           
-              if(G[i].size()<10 && G[n4].size()<10)  
+              if(G[i].size()<10 && G[n4].size()<10 && (find(G[i].begin(), G[i].end(), n4)==G[i].end()))  
             {
                 G[i].push_back(n4);
                 G[n4].push_back(i);
             }    
             
-            G[i].unique();
-            G[n4].unique();
-           
-              if(G[i].size()<10 && G[n3].size()<10)  
+              if(G[i].size()<10 && G[n3].size()<10 && (find(G[i].begin(), G[i].end(), n3)==G[i].end()))  
             {
                 G[i].push_back(n3);
                 G[n3].push_back(i);
             }    
            
-            G[i].unique();
-            G[n3].unique();
-            
-              if(G[i].size()<10 && G[n2].size()<10)  
+              if(G[i].size()<10 && G[n2].size()<10 && (find(G[i].begin(), G[i].end(), n2)==G[i].end()))  
             {
                 G[i].push_back(n2);
                 G[n2].push_back(i);
             }    
-            
-            G[i].unique();
-            G[n2].unique();
              
-              if(G[i].size()<10 && G[n1].size()<10)  
+              if(G[i].size()<10 && G[n1].size()<10 && (find(G[i].begin(), G[i].end(), n1)==G[i].end()))  
             {
                 G[i].push_back(n1);
                 G[n1].push_back(i);
             }    
-            
-            G[i].unique();
-            G[n1].unique();
-        
+                    
             if(G[i].size()<5)
                   i--;
             
@@ -111,7 +89,7 @@ int main()
         cout<<"Node "<<i<<": " ;
         for(auto it = G[i].begin(); it != G[i].end();++it)
             {
-                cout<<" "<<*it;
+               cout<<" "<<*it;
         }
         cout<<endl;
     }
@@ -144,21 +122,12 @@ int main()
                 {
                     ui temp=w;
              
-                    list<ui>::iterator it=G[temp].begin();   
-                    
-                    w = dVertex(generator);
+                w = dVertex(generator);
                 
-                if(w<G[temp].size())
-                    { 
-                        while(w--)
-                            it++;
-                        
-                        w=*it;
-                      
-                    }
-                    
-                    else
-                        w=temp;
+                if(w < G[temp].size())
+                    w = G[temp][w];    
+                else
+                     w=temp;
                     
             }  
             
@@ -184,7 +153,5 @@ int main()
     } 
         cout<<"Accept"<<endl;
     
-    
-
 return 0;
 }
