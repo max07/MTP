@@ -31,20 +31,17 @@ int main()
         vector<vector <ui> > G(n+1);
     
     
-    for(ui i=1;i<=n;++i)
-        {
-			
-				ui neighbour = distribution(generator);
-				if(G[i].size()<2*d && G[neighbour].size()<2*d && (find(G[i].begin(), G[i].end(), neighbour)==G[i].end()))  
-				{
-					G[i].push_back(neighbour);
-					G[neighbour].push_back(i);
-				}    
-				
-				if(G[i].size()< d){
-					--i;
-				}
+    for(ui i=1;i<=n;++i){
+		while(G[i].size()< d){
+			ui neighbour = distribution(generator);
+			if(G[i].size()<2*d && G[neighbour].size()<2*d && (find(G[i].begin(), G[i].end(), neighbour)==G[i].end()))  
+			{
+				G[i].push_back(neighbour);
+				G[neighbour].push_back(i);
+			}    
+                }
     }   
+    
     for(ui i=1;i<=n;++i)
         {
         cout<<"Node "<<i<<": " ;
