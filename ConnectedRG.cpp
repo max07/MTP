@@ -14,7 +14,12 @@ int main()
     /*                                                            */      
     /**************************************************************/
     ui n=500;
-
+	cout<<"Enter no of nodes: "<<endl;
+	cin>>n;
+	
+	ui d=2;
+	cout<<"Enter minimum Degree of each Node: "<<endl;
+	cin>>d;
     
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   
@@ -28,63 +33,18 @@ int main()
     
     for(ui i=1;i<=n;++i)
         {
-        ui n1=0,n2=0,n3=0,n4=0,n5=0;
-    while(n1==n2)
-        {
-        while(n2==n3)
-            {
-            while(n3==n4)
-                {
-                while(n4==n5)
-                    {
-                    while(n5==i || n5==0)
-                        {
-                        n5=distribution(generator);
-                    }
-                    n4=distribution(generator);
-                }        
-                n3=distribution(generator);
-            }
-            n2=distribution(generator);
-        }
-        n1=distribution(generator);
-    }
-           
-            
-              if(G[i].size()<10 && G[n5].size()<10 && (find(G[i].begin(), G[i].end(), n5)==G[i].end()))  
-            {
-                G[i].push_back(n5);
-                G[n5].push_back(i);
-            }    
-            
-              if(G[i].size()<10 && G[n4].size()<10 && (find(G[i].begin(), G[i].end(), n4)==G[i].end()))  
-            {
-                G[i].push_back(n4);
-                G[n4].push_back(i);
-            }    
-            
-              if(G[i].size()<10 && G[n3].size()<10 && (find(G[i].begin(), G[i].end(), n3)==G[i].end()))  
-            {
-                G[i].push_back(n3);
-                G[n3].push_back(i);
-            }    
-           
-              if(G[i].size()<10 && G[n2].size()<10 && (find(G[i].begin(), G[i].end(), n2)==G[i].end()))  
-            {
-                G[i].push_back(n2);
-                G[n2].push_back(i);
-            }    
-             
-              if(G[i].size()<10 && G[n1].size()<10 && (find(G[i].begin(), G[i].end(), n1)==G[i].end()))  
-            {
-                G[i].push_back(n1);
-                G[n1].push_back(i);
-            }    
-                    
-            if(G[i].size()<5)
-                  i--;
-            
-  }   
+			
+				ui neighbour = distribution(generator);
+				if(G[i].size()<2*d && G[neighbour].size()<2*d && (find(G[i].begin(), G[i].end(), neighbour)==G[i].end()))  
+				{
+					G[i].push_back(neighbour);
+					G[neighbour].push_back(i);
+				}    
+				
+				if(G[i].size()< d){
+					--i;
+				}
+    }   
     for(ui i=1;i<=n;++i)
         {
         cout<<"Node "<<i<<": " ;
@@ -118,9 +78,9 @@ int main()
         cout<<"Connected"<<endl;
     else
         cout<<"Multiple Components"<<endl;
-    
+   /* 
     for(int i=0; i<visited.size(); ++i){
         cout<<"visited["<<i<<"]: "<<visited[i]<<" "<<endl;
-    }
+    }*/
 return 0;
 }
